@@ -31,7 +31,21 @@ How could a model as described above help in this situation? Make assumptions or
 ...
 
 ## Evaluation
-...
+To run inference on your data you can use either the cli or the web application.
+### CLI
+1. Install necessary packages (Refer [Getting Started](https://github.com/adimyth/customer_sentiment_analysis#getting-started) below).
+2. Navigate to scripts directory
+3. To predict sentiment given summary -
+```bash
+poetry run python infer.py predict_summary "{summary_text}"
+```
+![summary.png](resources/summary.png)
+
+4. To predict sentiment given review text -
+```bash
+poetry run python infer.py predict_review "{review_text}"
+```
+![review.png](resources/review.png)
 
 ## Baselines
 ### Random Baseline
@@ -44,7 +58,7 @@ Accuracy = 50%
 Predict the most frequent class all times. Since, `positive` class is the frequent class. Baseline accuracy -
 ```
 Accuracy = # positive samples / # total samples
-Accuracy = 309000/380000 = ~0.80
+Accuracy = 307811/395003 ~ 0.78
 ```
 
 ## Machine Learning Models
@@ -55,46 +69,46 @@ Train different ML models on the summary & text vectors. We are using `TfIdfVect
 
 ### Count Vectorizer
 #### Summary
-|                                  |      ACC |      MCC |    TP |     TN |    FP |    FN |
-|:---------------------------------|---------:|---------:|------:|-------:|------:|------:|
-| ('naive_bayes', 'Train')         | 0.874254 | 0.607949 | 41342 | 234346 | 11644 | 28009 |
-| ('naive_bayes', 'Valid')         | 0.860305 | 0.558356 |  9382 |  58441 |  3057 |  7956 |
-| ('nbsvm', 'Train')               | 0.780076 | 0        |     0 | 245990 |     0 | 69351 |
-| ('nbsvm', 'Valid')               | 0.780075 | 0        |     0 |  61498 |     0 | 17338 |
-| ('logistic_regression', 'Train') | 0.878988 | 0.61969  | 40136 | 237045 |  8945 | 29215 |
-| ('logistic_regression', 'Valid') | 0.866558 | 0.576958 |  9387 |  58929 |  2569 |  7951 |
+|                                  |      ACC |      MCC |     TP |    TN |    FP |    FN |
+|:---------------------------------|---------:|---------:|-------:|------:|------:|------:|
+| ('naive_bayes', 'Train')         | 0.874195 | 0.607792 | 234326 | 41346 | 28007 | 11665 |
+| ('naive_bayes', 'Valid')         | 0.859239 | 0.556196 |  58275 |  9464 |  7874 |  3223 |
+| ('nbsvm', 'Train')               | 0.780072 | 0        | 245991 |     0 | 69353 |     0 |
+| ('nbsvm', 'Valid')               | 0.780075 | 0        |  61498 |     0 | 17338 |     0 |
+| ('logistic_regression', 'Train') | 0.878197 | 0.616823 | 237074 | 39860 | 29493 |  8917 |
+| ('logistic_regression', 'Valid') | 0.867155 | 0.579536 |  58883 |  9480 |  7858 |  2615 |
 
 #### Text
-|                                  |      ACC |      MCC |    TP |     TN |    FP |    FN |
-|:---------------------------------|---------:|---------:|------:|-------:|------:|------:|
-| ('naive_bayes', 'Train')         | 0.887138 | 0.662039 | 48713 | 231516 | 14638 | 21013 |
-| ('naive_bayes', 'Valid')         | 0.869229 | 0.601085 | 10935 |  57708 |  3830 |  6497 |
-| ('nbsvm', 'Train')               | 0.779264 | 0        |     0 | 246154 |     0 | 69726 |
-| ('nbsvm', 'Valid')               | 0.779258 | 0        |     0 |  61538 |     0 | 17432 |
-| ('logistic_regression', 'Train') | 0.913081 | 0.735889 | 50031 | 238393 |  7761 | 19695 |
-| ('logistic_regression', 'Valid') | 0.878612 | 0.627379 | 11045 |  58339 |  3199 |  6387 |
+|                                  |      ACC |      MCC |     TP |    TN |    FP |    FN |
+|:---------------------------------|---------:|---------:|-------:|------:|------:|------:|
+| ('naive_bayes', 'Train')         | 0.887996 | 0.665164 | 231461 | 49041 | 20687 | 14693 |
+| ('naive_bayes', 'Valid')         | 0.870953 | 0.607217 |  57711 | 11069 |  6363 |  3828 |
+| ('nbsvm', 'Train')               | 0.779259 | 0        | 246154 |     0 | 69728 |     0 |
+| ('nbsvm', 'Valid')               | 0.779261 | 0        |  61539 |     0 | 17432 |     0 |
+| ('logistic_regression', 'Train') | 0.908434 | 0.721914 | 237293 | 49665 | 20063 |  8861 |
+| ('logistic_regression', 'Valid') | 0.884451 | 0.646691 |  58461 | 11385 |  6047 |  3078 |
 
 
 ### TFIDF Vectorizer
 #### Summary
-|                                  |      ACC |      MCC |    TP |     TN |   FP |    FN |
-|:---------------------------------|---------:|---------:|------:|-------:|-----:|------:|
-| ('naive_bayes', 'Train')         | 0.868736 | 0.579055 | 33044 | 240904 | 5086 | 36307 |
-| ('naive_bayes', 'Valid')         | 0.854445 | 0.52485  |  7360 |  60001 | 1497 |  9978 |
-| ('nbsvm', 'Train')               | 0.780076 | 0        |     0 | 245990 |    0 | 69351 |
-| ('nbsvm', 'Valid')               | 0.780075 | 0        |     0 |  61498 |    0 | 17338 |
-| ('logistic_regression', 'Train') | 0.875693 | 0.606949 | 38465 | 237677 | 8313 | 30886 |
-| ('logistic_regression', 'Valid') | 0.865988 | 0.573556 |  9177 |  59094 | 2404 |  8161 |
+|                                  |      ACC |      MCC |     TP |    TN |    FP |   FN |
+|:---------------------------------|---------:|---------:|-------:|------:|------:|-----:|
+| ('naive_bayes', 'Train')         | 0.868128 | 0.576811 | 240831 | 32928 | 36425 | 5160 |
+| ('naive_bayes', 'Valid')         | 0.855941 | 0.530696 |  60004 |  7475 |  9863 | 1494 |
+| ('nbsvm', 'Train')               | 0.780072 | 0        | 245991 |     0 | 69353 |    0 |
+| ('nbsvm', 'Valid')               | 0.780075 | 0        |  61498 |     0 | 17338 |    0 |
+| ('logistic_regression', 'Train') | 0.874819 | 0.603768 | 237700 | 38169 | 31184 | 8291 |
+| ('logistic_regression', 'Valid') | 0.867281 | 0.578148 |  59120 |  9253 |  8085 | 2378 |
 
 #### Text
-|                                  |      ACC |      MCC |    TP |     TN |   FP |    FN |
-|:---------------------------------|---------:|---------:|------:|-------:|-----:|------:|
-| ('naive_bayes', 'Train')         | 0.800481 | 0.274283 |  6944 | 245912 |  242 | 62782 |
-| ('naive_bayes', 'Valid')         | 0.791858 | 0.209404 |  1053 |  61480 |   58 | 16379 |
-| ('nbsvm', 'Train')               | 0.779264 | 0        |     0 | 246154 |    0 | 69726 |
-| ('nbsvm', 'Valid')               | 0.779258 | 0        |     0 |  61538 |    0 | 17432 |
-| ('logistic_regression', 'Train') | 0.896765 | 0.68293  | 46200 | 237070 | 9084 | 23526 |
-| ('logistic_regression', 'Valid') | 0.884804 | 0.645047 | 11085 |  58788 | 2750 |  6347 |
+|                                  |      ACC |      MCC |     TP |    TN |    FP |   FN |
+|:---------------------------------|---------:|---------:|-------:|------:|------:|-----:|
+| ('naive_bayes', 'Train')         | 0.799881 | 0.270204 | 245906 |  6762 | 62966 |  248 |
+| ('naive_bayes', 'Valid')         | 0.792126 | 0.212019 |  61489 |  1066 | 16366 |   50 |
+| ('nbsvm', 'Train')               | 0.779259 | 0        | 246154 |     0 | 69728 |    0 |
+| ('nbsvm', 'Valid')               | 0.779261 | 0        |  61539 |     0 | 17432 |    0 |
+| ('logistic_regression', 'Train') | 0.899608 | 0.6926   | 237068 | 47102 | 22626 | 9086 |
+| ('logistic_regression', 'Valid') | 0.88944  | 0.660337 |  58893 | 11347 |  6085 | 2646 |
 
 ## Getting Started
 All the experiments are run on `python 3.7.0`.

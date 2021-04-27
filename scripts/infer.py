@@ -1,8 +1,7 @@
-import joblib
 import fire
+import joblib
 import numpy as np
 import pandas as pd
-
 from process import Processor
 
 
@@ -25,7 +24,6 @@ class Infer:
         prob_score = self.summary_model.predict_proba(vectors)[0]
         print(f"Prediction: {prediction}")
         print(f"Probability Scores: {prob_score}")
-        # return prediction
 
     def predict_review(self, text):
         text = self.processor.process_all(text)
@@ -34,7 +32,6 @@ class Infer:
         prob_score = self.text_model.predict_proba(vectors)[0]
         print(f"Prediction: {prediction}")
         print(f"Probability Scores: {prob_score}")
-        # return prediction
 
 
 if __name__ == "__main__":

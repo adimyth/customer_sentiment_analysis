@@ -5,13 +5,12 @@ warnings.filterwarnings("ignore")
 import joblib
 import numpy as np
 import pandas as pd
+from nbsvm_classifier import NBSVMClassifier
 from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import accuracy_score, confusion_matrix, matthews_corrcoef
 from sklearn.model_selection import train_test_split
 from sklearn.naive_bayes import MultinomialNB
-
-from nbsvm_classifier import NBSVMClassifier
 
 
 class TrainClassifier:

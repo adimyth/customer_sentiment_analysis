@@ -1,4 +1,5 @@
 # Customer Sentiment Analysis
+![Classifier](resources/classifier.gif)
 ## Problem Description
 > "Create a model that predicts scores from text reviews"
 
@@ -46,6 +47,13 @@ poetry run python infer.py predict_summary "{summary_text}"
 poetry run python infer.py predict_review "{review_text}"
 ```
 ![review.png](resources/review.png)
+
+### Web App
+1. Run the app -
+```bash
+poetry run streamlit run app.py
+```
+2. Navigate to localhost:50001
 
 ## Baselines
 ### Random Baseline

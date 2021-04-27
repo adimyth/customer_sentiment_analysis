@@ -54,7 +54,7 @@ class TrainClassifier:
         vec = CountVectorizer()
         train_term_doc = vec.fit_transform(X_train)
         valid_term_doc = vec.transform(X_valid)
-        joblib.dump(vec, f"../pickles/count_vectorizer.joblib")
+        joblib.dump(vec, f"../pickles/count_vectorizer_{self.field}.joblib")
         return train_term_doc, valid_term_doc
 
     def get_tfidf_vectors(self, X_train, X_valid):
@@ -117,7 +117,9 @@ class TrainClassifier:
             print("\n\n")
 
             # save model
-            joblib.dump(model, f"../models/{model_name}.joblib")
+            joblib.dump(
+                model, f"../models/{model_name}_{self.field}_{self.vec_type}.joblib"
+            )
         index = pd.MultiIndex.from_product(
             [["naive_bayes", "nbsvm", "logistic_regression"], ["Train", "Valid"]],
             names=["Split", "Model"],
